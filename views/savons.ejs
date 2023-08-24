@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAVON APP</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        .logo, footer {
+            text-align: center;
+        }
+        hr {
+            margin-bottom: 2em;
+        }
+        .actions {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: #fff;
+            padding: .5em;
+        }
+
+        .Non-dispo {
+            background-color: red;
+        }
+
+        .Disponible {
+            background-color: green;
+        }
+
+        .Disponible,
+        .Non-dispo {
+            color: #fff;
+            text-align: center;
+            border-radius: 2em;
+            font-weight: bold;
+        }
+        button {
+            width: inherit;
+        }
+        /* .message {
+            background-color: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 0.5em;
+            padding: 0.15em;
+            margin: auto;
+            text-align: center;
+            max-width: 50%;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="logo">
+            <img src="https://images.panierdachat.app/68/OwW0mp2s_logo-savonnerie-paysanne-102be223-1cbe-485f-ba39-aec31b142faf.png?w=500&h=105&fit=max" alt="logo">
+        </div>
+        <hr>
+        
+        <div class="container">
+            <form action="/savons/create" method="POST">
+                <div class="grid">
+                    <label for="firstname">
+                        <input type="text" id="title" name="title" placeholder="Titre du savon" required>
+                    </label>
+                    <select id="status" name="status" required>
+                        <option value="" selected>Selectionnez la disponibilité</option>
+                        <option value="Disponible">Disponible</option>
+                        <option value="Non-dispo">Non disponible</option>
+                    </select>
+                </div>
+                <label for="description">Description du savon</label>
+                <input type="text" id="description" name="description" placeholder="Ce savon...." required>
+                <button type="submit">Enregistrer</button>
+            </form>
+        </div>
+        <hr>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%if(savons.length){%>
+                    <% savons.forEach(function(savon){ %>
+                        <tr>
+                            <td>
+                                <%= savon.title %>
+                            </td>
+                            <td>
+                                <%= savon.description %>
+                            </td>
+                            <td>
+                                <p class="<%= savon.status %>">
+                                    <%= savon.status %>
+                                </p>
+                            </td>
+                            <td class="actions">
+                                <a class="btn" href="/savons/voir/<%= savon.id %>">
+                                    <img src="https://api.iconify.design/bi:eye.svg"
+                                        alt="Voir">
+                                </a>
+                            </td>
+                            <td class="actions">
+                                <a class="btn" href="/savons/delete/<%= savon.id %>">
+                                    <img src="https://api.iconify.design/ic:baseline-delete-forever.svg"
+                                        alt="Supprimer">
+                                </a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                            <% }else{ %>
+                                <tr>
+                                    <td colspan="3">Pas de savons listés</td>
+                                </tr>
+                                <% } %>
+            </tbody>
+        </table>
+        <footer>
+            <p>Cours de NodeJS - <a href="https://www.agiliteach.org">Agiliteach</a></p>
+        </footer>
+    </div>
+</body>
+
+</html>
