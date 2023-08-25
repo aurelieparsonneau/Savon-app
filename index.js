@@ -33,17 +33,16 @@ app.get('/savons', (req, res) => {
 })
 
 app.post('/savons/create', (req, res) => {
-    const savons = JSON.parse(fs.readFileSync('db.json')).savons; // On récupère les tâches dans le fichier JSON.
-    const newSavon = { // On crée une nouvelle tâche.
-        id: Date.now(), // On génère un id unique pour la nouvelle tâche.
-        title: req.body.title, // On récupère le titre de la nouvelle tâche.
-        description: req.body.description, // On récupère la description de la nouvelle tâche.
-        status: req.body.status, // On récupère le statut de la nouvelle tâche.
+    const savons = JSON.parse(fs.readFileSync('db.json')).savons; 
+    const newSavon = { 
+        id: Date.now(),
+        title: req.body.title, 
+        description: req.body.description, 
+        status: req.body.status, 
     };
-    savons.push(newSavon); // On ajoute la nouvelle tâche dans le tableau des tâches.
-    fs.writeFileSync('db.json', JSON.stringify({ savons })); // On enregistre les tâches dans le fichier JSON.
-    // let message = "La tâche a bien été ajoutée";
-    res.redirect('/savons'); // On redirige l'internaute vers la page des tâches.
+    savons.push(newSavon); 
+    fs.writeFileSync('db.json', JSON.stringify({ savons })); 
+    res.redirect('/savons'); 
 });
 
 app.get('/savons/voir/:id', (req, res) => {
@@ -53,11 +52,11 @@ app.get('/savons/voir/:id', (req, res) => {
     res.render('savonId', { savonId });
 })
 
-app.get('/savons/delete/:id', (req, res) => { // On définit la route "/tasks/delete/:id".
-    const savons = JSON.parse(fs.readFileSync('db.json')).savons; // On récupère les tâches dans le fichier JSON.
-    const newSavons = savons.filter(savon => savon.id !== parseInt(req.params.id)); // On filtre les tâches pour ne garder que les tâches dont l'id est différent de l'id de la tâche à supprimer.
-    fs.writeFileSync('db.json', JSON.stringify({ savons: newSavons })); // On enregistre les tâches dans le fichier JSON.
-    res.redirect('/savons'); // On redirige l'internaute vers la page des tâches.
+app.get('/savons/delete/:id', (req, res) => { 
+    const savons = JSON.parse(fs.readFileSync('db.json')).savons; 
+    const newSavons = savons.filter(savon => savon.id !== parseInt(req.params.id)); 
+    fs.writeFileSync('db.json', JSON.stringify({ savons: newSavons })); 
+    res.redirect('/savons'); 
 });
 
 app.listen(3001, () => console.log('Le serveur est lancé sur le port 3001'));
