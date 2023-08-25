@@ -46,6 +46,13 @@ app.post('/savons/create', (req, res) => {
     res.redirect('/savons'); // On redirige l'internaute vers la page des tâches.
 });
 
+app.get('/savons/voir/:id', (req, res) => {
+    const savons = JSON.parse(fs.readFileSync('db.json')).savons; 
+    const savonId = savons.filter(savon => savon.id == parseInt(req.params.id));
+    fs.readFileSync('db.json').savonId;
+    res.render('savonId', { savonId });
+})
+
 app.get('/savons/delete/:id', (req, res) => { // On définit la route "/tasks/delete/:id".
     const savons = JSON.parse(fs.readFileSync('db.json')).savons; // On récupère les tâches dans le fichier JSON.
     const newSavons = savons.filter(savon => savon.id !== parseInt(req.params.id)); // On filtre les tâches pour ne garder que les tâches dont l'id est différent de l'id de la tâche à supprimer.

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAVON APP</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        .logo, footer {
+            text-align: center;
+        }
+        .Non {
+            background-color: red;
+        }
+
+        .Disponible {
+            background-color: green;
+        }
+
+        .Disponible,
+        .Non {
+            color: #fff;
+            text-align: center;
+            border-radius: 2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="logo">
+            <img src="https://images.panierdachat.app/68/OwW0mp2s_logo-savonnerie-paysanne-102be223-1cbe-485f-ba39-aec31b142faf.png?w=500&h=105&fit=max" alt="logo">
+        </div>
+        <hr>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%if(savonId.length){%>
+                    <% savonId.forEach(function(savon){ %>
+                        <tr>
+                            <td>
+                                <%= savon.title %>
+                            </td>
+                            <td>
+                                <%= savon.description %>
+                            </td>
+                            <td>
+                                <p class="<%= savon.status %>">
+                                    <%= savon.status %>
+                                </p>
+                            </td>
+                            <% }) %>
+                            <% }else{ %>
+                        </tr>
+                                <tr>
+                                    <td colspan="3">Pas de savons listés</td>
+                                </tr>
+                                <% } %>
+            </tbody>
+        </table>
+        <footer>
+            <p>Cours de NodeJS - <a href="https://www.agiliteach.org">Agiliteach</a></p>
+        </footer>
+    </div>
+</body>
+
+</html>
